@@ -1,0 +1,104 @@
+<?php
+
+namespace Balticode\Billink\Controller\Adminhtml\Version;
+
+use Balticode\Billink\Helper\Version as VersionHelper;
+use Balticode\Billink\Model\VersionCheckerInterface;
+use Balticode\Billink\Model\VersionCheckerInterfaceFactory;
+use Magento\Backend\App\Action;
+use Magento\Framework\Controller\Result\JsonFactory;
+use Psr\Log\LoggerInterface;
+
+/**
+ * Class Check
+ * @package Balticode\Billink\Controller\Adminhtml\Version
+ */
+class Check extends Action
+{
+    /**
+     * @var JsonFactory
+     */
+    private $resultJsonFactory;
+
+    /**
+     * @var VersionCheckerInterface
+     */
+    private $versionCheckerFactory;
+
+    /**
+     * @var Version
+     */
+    private $versionHelper;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
+     * Check constructor.
+     *
+     * @param Action\Context $context
+     * @param JsonFactory $resultJsonFactory
+     * @param VersionCheckerInterfaceFactory $versionCheckerFactory
+     * @param VersionHelper $versionHelper
+     * @param LoggerInterface $logger
+     */
+    public function __construct(
+        Action\Context $context,
+        JsonFactory $resultJsonFactory,
+        VersionCheckerInterfaceFactory $versionCheckerFactory,
+        VersionHelper $versionHelper,
+        LoggerInterface $logger
+    ) {
+        $this->resultJsonFactory = $resultJsonFactory;
+        $this->versionCheckerFactory = $versionCheckerFactory;
+        $this->versionHelper = $versionHelper;
+        $this->logger = $logger;
+
+        parent::__construct($context);
+    }
+
+    /**
+     * @return $this
+     */
+    public function execute()
+    {
+        $versionChecker = $this->versionCheckerFactory->create();
+        $versionInfo = [];
+
+        $this->logger->error("HI");
+
+        try {
+            $versionInfo = $this->prepareVersionInfo($versionChecker);
+        } catch (\Exception $e) {
+            $versionInfo['error'] = 1;
+            $this->logger->error('Version check error: ' . $e->getMessage());
+        }
+
+        return $this->resultJsonFactory->create()->setData($versionInfo);
+    }
+
+    /**
+     * @param VersionCheckerInterface $versionChecker
+     * @return array
+     */
+    private function prepareVersionInfo($versionChecker)
+    {
+        $remoteVersion = $versionChecker->getRemoteVersion();
+
+        return [
+            'error' => 0,
+            'version' => $remoteVersion,
+            'isUpToDate' => $this->versionHelper->isSameAsCurrent($remoteVersion)
+        ];
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Balticode_Billink::resource');
+    }
+}
