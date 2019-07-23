@@ -42,9 +42,9 @@ class Config extends \Magento\Payment\Gateway\Config\Config
 
     public function __construct(
         ScopeConfigInterface $scopeConfig,
+        Repository $assetRepository,
         $methodCode = null,
-        $pathPattern = \Magento\Payment\Gateway\Config\Config::DEFAULT_PATH_PATTERN,
-        Repository $assetRepository
+        $pathPattern = \Magento\Payment\Gateway\Config\Config::DEFAULT_PATH_PATTERN
     ) {
         \Magento\Payment\Gateway\Config\Config::__construct($scopeConfig, $methodCode, $pathPattern);
         $this->assetRepository = $assetRepository;

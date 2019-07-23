@@ -63,6 +63,7 @@ final class ConfigProvider implements ConfigProviderInterface
      * Retrieve assoc array of checkout configuration
      *
      * @return array
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getConfig()
     {
@@ -74,6 +75,7 @@ final class ConfigProvider implements ConfigProviderInterface
 
     /**
      * @return array
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     private function preparePaymentConfig()
     {

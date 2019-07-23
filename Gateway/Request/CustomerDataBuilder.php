@@ -5,11 +5,10 @@ namespace Balticode\Billink\Gateway\Request;
 use Balticode\Billink\Gateway\Helper\SubjectReader;
 use Balticode\Billink\Gateway\Helper\Workflow as WorkflowHelper;
 use Balticode\Billink\Observer\DataAssignObserver;
+use Balticode\Billink\Util\UserAgentParser;
 use Magento\Framework\HTTP\Header;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Magento\Payment\Gateway\Request\BuilderInterface;
-
-include(__DIR__ . '/../../Util/UserAgentParser.php');
 
 class CustomerDataBuilder implements BuilderInterface
 {
@@ -78,7 +77,7 @@ class CustomerDataBuilder implements BuilderInterface
         $customerEmail = $orderData->getEmail() ?: ($billingAddress->getEmail() ?: false);
         $customerPhonenumber = $orderData->getTelephone() ?: ($billingAddress->getTelephone() ?: false);
 
-        $headerData = parse_user_agent($this->headerService->getHttpUserAgent());
+        $headerData = UserAgentParser::parse_user_agent($this->headerService->getHttpUserAgent());
 
         $result = [
             self::EMAIL => $customerEmail,

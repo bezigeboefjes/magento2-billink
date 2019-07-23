@@ -52,7 +52,8 @@ class Workflow extends AbstractFieldArray
     }
 
     /**
-     * @return \Magento\Framework\View\Element\BlockInterface
+     * @return Type|\Magento\Framework\View\Element\BlockInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function getTypeRenderer()
     {
@@ -67,7 +68,8 @@ class Workflow extends AbstractFieldArray
     }
 
     /**
-     * @return \Magento\Framework\View\Element\BlockInterface
+     * @return Yesno|\Magento\Framework\View\Element\BlockInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function getCheckRenderer()
     {
@@ -141,7 +143,8 @@ class Workflow extends AbstractFieldArray
 
     /**
      * @param DataObject $row
-     * @return void
+     *
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function _prepareArrayRow(DataObject $row)
     {

@@ -2,8 +2,6 @@
 
 namespace Balticode\Billink\Gateway\Http\Client;
 
-use Balticode\Billink\Gateway\Config\Config;
-use Magento\Framework\DataObject;
 use Magento\Framework\HTTP\ZendClientFactory;
 use Magento\Framework\HTTP\ZendClient;
 use Magento\Payment\Gateway\Http\ClientException;
@@ -54,9 +52,12 @@ class Zend implements ClientInterface
      * {inheritdoc}
      * @see \Magento\Payment\Gateway\Http\Client\Zend
      * @param TransferInterface $transferObject
+     *
      * @return array
+     *
      * @throws ClientException
      * @throws ConverterException
+     * @throws \Zend_Http_Client_Exception
      */
     public function placeRequest(TransferInterface $transferObject)
     {

@@ -34,7 +34,7 @@ class DeliveryAddressDataBuilder implements BuilderInterface
     private $checkoutSession;
 
     /**
-     * @var Address
+     * @var AddressHelper
      */
     private $addressHelper;
 

@@ -26,7 +26,7 @@ class Check extends Action
     private $versionCheckerFactory;
 
     /**
-     * @var Version
+     * @var VersionHelper
      */
     private $versionHelper;
 
@@ -60,14 +60,12 @@ class Check extends Action
     }
 
     /**
-     * @return $this
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Json|\Magento\Framework\Controller\ResultInterface
      */
     public function execute()
     {
         $versionChecker = $this->versionCheckerFactory->create();
         $versionInfo = [];
-
-        $this->logger->error("HI");
 
         try {
             $versionInfo = $this->prepareVersionInfo($versionChecker);

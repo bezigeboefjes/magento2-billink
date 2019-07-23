@@ -3,15 +3,24 @@
 
 namespace Balticode\Billink\Model;
 
+use Magento\Framework\Module\ModuleListInterface;
 
 class VersionChecker implements \Balticode\Billink\Model\VersionCheckerInterface
 {
+    const MODULE_NAME = 'Balticode_Billink';
+
+    protected $moduleList;
+
+    public function __construct(ModuleListInterface $moduleList)
+    {
+        $this->moduleList = $moduleList;
+
+    }
     /**
      * @return mixed
      */
     public function getRemoteVersion()
     {
-        // TODO: implement from remote server
-        return '1.0.1';
+        return $this->moduleList->getOne(static::MODULE_NAME)['setup_version'];
     }
 }

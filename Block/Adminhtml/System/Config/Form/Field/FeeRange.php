@@ -44,7 +44,6 @@ class FeeRange extends AbstractFieldArray
 
     /**
      * Add table system config columns
-     * @return void
      */
     protected function _prepareToRender()
     {
@@ -69,7 +68,8 @@ class FeeRange extends AbstractFieldArray
     }
 
     /**
-     * @return \Magento\Framework\View\Element\BlockInterface
+     * @return WorkflowType|\Magento\Framework\View\Element\BlockInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function getWorkflowTypeRenderer()
     {
@@ -85,7 +85,8 @@ class FeeRange extends AbstractFieldArray
 
     /**
      * @param DataObject $row
-     * @return void
+     *
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function _prepareArrayRow(DataObject $row)
     {

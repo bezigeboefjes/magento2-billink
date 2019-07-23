@@ -66,7 +66,8 @@ class DataAssignObserver extends AbstractDataAssignObserver
 
     /**
      * @param Observer $observer
-     * @return void
+     *
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function execute(Observer $observer)
     {
